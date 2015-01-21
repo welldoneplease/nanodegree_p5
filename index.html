@@ -1,35 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style type="text/css">
-      html, body, #map-canvas { height: 100%; margin: 0; padding: 0;}
-    </style>
+    <link rel="stylesheet" href="css/main.css">
     <script type="text/javascript" src="bower_components/knockoutjs/dist/knockout.js"></script>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoGtqcCPsUMHR3Qyu29Y6Ogtqk_7dBsgw">
-    </script>
-    <script type="text/javascript">
-      function initialize() {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          var geoLat = position.coords.latitude,
-            geoLng = position.coords.longitude;
-
-          var mapOptions = {
-            center: {
-              lat: geoLat,
-              lng: geoLng
-            },
-            zoom: 15
-          };
-
-          var map = new google.maps.Map(document.getElementById('map-canvas'),
-              mapOptions);
-        });
-      }
-
-      google.maps.event.addDomListener(window, 'load', initialize);
-
-    </script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCoGtqcCPsUMHR3Qyu29Y6Ogtqk_7dBsgw"></script>
+    <script type="text/javascript" src="js/app.js"></script>
   </head>
 
   <body>
