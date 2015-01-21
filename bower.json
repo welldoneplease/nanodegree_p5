@@ -1,0 +1,21 @@
+{
+  "name": "p5",
+  "version": "0.0.0",
+  "authors": [
+    "welldoneplease"
+  ],
+  "description": "nanodegree map app",
+  "main": "index.html",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "knockoutjs": "~3.2.0"
+  }
+}
