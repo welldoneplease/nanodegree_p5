@@ -3,3 +3,18 @@ html, body, #map-canvas {
   margin: 0;
   padding: 0;
 }
+
+ul {
+  position: fixed;
+  top: 40px;
+  right: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  list-style-type: none;
+  padding: 10px;
+  margin: 0;
+}
+
+li {
+  cursor: pointer;
+}
+
