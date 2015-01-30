@@ -4,17 +4,53 @@ html, body, #map-canvas {
   padding: 0;
 }
 
-ul {
+#pois {
   position: fixed;
   top: 40px;
   right: 8px;
-  background: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.7);
+}
+
+#pois input#search-box {
+  margin: 5px;
+  padding: 5px;
+  height: 30px;
+  width: 91%;
+  border: 0;
+}
+
+ul {
+  width: 100%;
   list-style-type: none;
-  padding: 10px;
+  padding: 0;
   margin: 0;
 }
 
 li {
   cursor: pointer;
+  color: white;
+  padding: 5px 10px;
 }
 
+li:hover {
+  background: rgba(0, 0, 0, 0.2);
+  color: orange;
+}
+
+li:active {
+  background: rgba(0, 0, 0, 0.4);
+  color: orange;
+}
+
+li.selected {
+  color: darkorange;
+}
+
+#streetView {
+  float: left;
+  margin-right: 10px;
+}
+
+#flickr img {
+  margin-right: 5px;
+}
