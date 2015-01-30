@@ -49,7 +49,7 @@ var poi = [
     coords: {lat: 37.732957, lng: -122.502955},
     wiki: 'http://en.wikipedia.org/w/api.php?action=opensearch&search=san_francisco_zoo&format=json&callback=wikiCallback'
   }
-]
+];
 
 var Marker = function(data) {
   return new google.maps.Marker({
@@ -93,7 +93,7 @@ var InfoWindow = function() {
 
     var flickrURL = 'https://api.flickr.com/services/rest/?method=flickr.photos.search'+
                     '&api_key=b61b48dd3f3b59e56ecd655157bc97c6&tags=%myTag%&sort=interestingness-desc&lat=%myLat%&lon=%myLng%&'+
-                    'per_page=3&format=json&nojsoncallback=1'
+                    'per_page=3&format=json&nojsoncallback=1';
 
     var modTpl = replaceContent(marker);
 
@@ -121,10 +121,10 @@ var InfoWindow = function() {
     ).then(function(flickrRsp, wikiRsp) {
         var photos = flickrRsp[0].photos.photo;
 
-        imageSnippet = ''
+        imageSnippet = '';
         photos.forEach(function(photo) {
-          imageSnippet += '<img src="https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_q.jpg">'
-        })
+          imageSnippet += '<img src="https://farm'+photo.farm+'.staticflickr.com/'+photo.server+'/'+photo.id+'_'+photo.secret+'_q.jpg">';
+        });
 
         modTpl = modTpl.replace('%flickrImg%', imageSnippet);
         //console.log(wikiRsp);
@@ -132,10 +132,10 @@ var InfoWindow = function() {
         self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]+' <a href="'+wikiRsp[0][3][0]+'" target="_blank">Read more<a/>'));
         self.open(map, marker);
     });
-  }
+  };
 
   return obj;
-}
+};
 
 
 
@@ -168,7 +168,7 @@ var MapViewModel = function() {
     });
 
     this.markerList.push(marker);
-  }, this)
+  }, this);
 
   this.currentMarker = ko.observable('');
 
@@ -181,17 +181,17 @@ var MapViewModel = function() {
         marker.setOpacity(0.1);
       }
     });
-  }
+  };
 
   this.setCurrentMarker = function(marker) {
     self.currentMarker() && self.currentMarker().setOpacity(0.7);
     self.currentMarker(marker);
     marker.setOpacity(1);
-  }
+  };
 
   this.showInfoWindow = function() {
     self.infoWindow.showMarkerWindow(self.map, self.currentMarker());
-  }
+  };
 };
 
 ko.applyBindings(new MapViewModel());
