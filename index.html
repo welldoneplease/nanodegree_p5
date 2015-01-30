@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/main.css">
   </head>
 
   <body>
     <div id="map-canvas"></div>
-    <ul data-bind="foreach: markerList">
-      <li data-bind="text: title,
-        click: function() {
-          $parent.setCurrentMarker($data);
-          $parent.showInfoWindow();
-        }
-        "></li>
-    </ul>
+    <div id="pois">
+      <input id="search-box" data-bind="value: filter, valueUpdate: 'keyup'" type="text" placeholder="search for location">
+      <ul data-bind="foreach: filteredList()">
+        <li data-bind="text: title,
+          click: function() {
+            $parent.setCurrentMarker($data);
+            $parent.showInfoWindow();
+            }, css: {selected: $parent.currentMarker().title === title}
+          "></li>
+      </ul>
+    </div>
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCoGtqcCPsUMHR3Qyu29Y6Ogtqk_7dBsgw"></script>
     <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
