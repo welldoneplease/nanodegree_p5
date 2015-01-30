@@ -127,7 +127,7 @@ var InfoWindow = function() {
         })
 
         modTpl = modTpl.replace('%flickrImg%', imageSnippet);
-        console.log(wikiRsp);
+        //console.log(wikiRsp);
 
         self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]+' <a href="'+wikiRsp[0][3][0]+'" target="_blank">Read more<a/>'));
         self.open(map, marker);
@@ -173,15 +173,14 @@ var MapViewModel = function() {
   this.currentMarker = ko.observable('');
 
   this.filteredList = function() {
-    if(!self.filter()) {
-      return self.markerList();
-    } else {
-      return ko.utils.arrayFilter(self.markerList(), function(marker) {
-        if (marker.title.toLowerCase().indexOf(self.filter().toLowerCase()) > -1) {
-          return marker;
-        }
-      });
-    }
+    return ko.utils.arrayFilter(self.markerList(), function(marker) {
+      if (marker.title.toLowerCase().indexOf(self.filter().toLowerCase()) > -1) {
+        marker.setOpacity(0.7);
+        return marker;
+      } else {
+        marker.setOpacity(0.1);
+      }
+    });
   }
 
   this.setCurrentMarker = function(marker) {
