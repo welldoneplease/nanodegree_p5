@@ -55,14 +55,15 @@ var Marker = function(data) {
   return new google.maps.Marker({
     position: new google.maps.LatLng(data.coords.lat, data.coords.lng),
     title: data.name,
-    wiki: data.wiki
+    wiki: data.wiki,
+    opacity: 0.7
   });
 };
 
 
 var InfoWindow = function() {
 
-  var obj = new google.maps.InfoWindow();
+  var obj = new google.maps.InfoWindow({maxWidth: 580});
 
   var template =
     '<div id="content">'+
@@ -126,8 +127,9 @@ var InfoWindow = function() {
         })
 
         modTpl = modTpl.replace('%flickrImg%', imageSnippet);
+        console.log(wikiRsp);
 
-        self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]));
+        self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]+' <a href="'+wikiRsp[0][3][0]+'" target="_blank">Read more<a/>'));
         self.open(map, marker);
     });
   }
@@ -149,13 +151,17 @@ var MapViewModel = function() {
 
   this.markerList = ko.observableArray([]);
 
+  this.filter = ko.observable('');
+
   this.infoWindow = new InfoWindow();
 
   poi.forEach(function(point) {
+    // set up markers
     var marker = new Marker(point);
 
     marker.setMap(this.map);
 
+    // add click event listener to markers
     google.maps.event.addListener(marker, 'click', function() {
       self.setCurrentMarker(marker);
       self.showInfoWindow();
@@ -164,10 +170,24 @@ var MapViewModel = function() {
     this.markerList.push(marker);
   }, this)
 
-  this.currentMarker = ko.observable(this.markerList()[0]);
+  this.currentMarker = ko.observable('');
+
+  this.filteredList = function() {
+    if(!self.filter()) {
+      return self.markerList();
+    } else {
+      return ko.utils.arrayFilter(self.markerList(), function(marker) {
+        if (marker.title.toLowerCase().indexOf(self.filter().toLowerCase()) > -1) {
+          return marker;
+        }
+      });
+    }
+  }
 
   this.setCurrentMarker = function(marker) {
+    self.currentMarker() && self.currentMarker().setOpacity(0.7);
     self.currentMarker(marker);
+    marker.setOpacity(1);
   }
 
   this.showInfoWindow = function() {
