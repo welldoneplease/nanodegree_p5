@@ -129,7 +129,7 @@ var InfoWindow = function() {
         modTpl = modTpl.replace('%flickrImg%', imageSnippet);
         //console.log(wikiRsp);
 
-        self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]+' <a href="'+wikiRsp[0][3][0]+'" target="_blank">Read more<a/>'));
+        self.setContent(modTpl.replace('%content%', wikiRsp[0][2][0]+' <a href="'+wikiRsp[0][3][0]+'" target="_blank">Read more</a>'));
         self.open(map, marker);
     });
   };
@@ -147,7 +147,7 @@ var MapViewModel = function() {
   var myLocation = {lat: 37.7900, lng: -122.4176};
 
   this.map = new google.maps.Map(document.getElementById('map-canvas'),
-      {center: myLocation, zoom: 12});
+      {center: myLocation, zoom: 12, disableDefaultUI: true});
 
   this.markerList = ko.observableArray([]);
 
