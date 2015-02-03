@@ -55,7 +55,13 @@ var Marker = function(data) {
   return new google.maps.Marker({
     position: new google.maps.LatLng(data.coords.lat, data.coords.lng),
     // use own image for markers
-    icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAwAAAAMADO7oxXAAAB2ElEQVRo3u2ZsU4CQRCGP4wxUWOsLWy0s7BAEzsjoYBQWPESloaSigpegXcgFPZaWFARWyChszCBhtBhTLRgLlFiYJbb2cN4XzLNsjvz/3PscXtASsr/JuM5Xxa4Ba6BI+BYxl+BN+AZeABekja+2IQyMAA+lTGQNb4b6MwJ0HEQvhgdyZEIN8A4hvgoxpIrKDlg5kF8FDPJGYRTYORRfBQjyW1Khnjfec2eMN3YZUPxUZQtDfQDGOhbic86iHhgvin3JXIypl2ftTBQUxavLslRVeaoWRh4VHZ+FZor8WhhQPOooLmX5xR5BhYGporCB4o8B4o8U62oLQcD2xZdiVvLxcBYMefS0xxNLWcDQ8Wce09zNLWcaRDuNtqwMFBUFvfxQ1a0MLADTBxErBsTqaXCZQ+8A22LzizQllomXGF/Ba6sO9Q1FN+1Fg9QMjRQCmEAbE5lnVDiAfIGBvIhDQA8eRT/FFo8wDnz211c8e+SKxHqHgzUkxIPsMv8wWtd8UPJkSiFGAYKSYuPaK4hvpm06O/sAT0H8T1Zs1FcoHvhO5O5G0lFYaCStMhlZIDWEvEtNuBfmVUc8vs71L589ic44+fpbSJjf4oi8CFhcsYNwZ1ESkqKEV9w01rm50sn9gAAAABJRU5ErkJggg==',
+    icon: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAkCAYAAADhAJiYAAAABmJLR0QAAAAAAAD5Q7t/'+
+          'AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAkAAAAJAB4BxuPAAABdUlEQVRYw+2WPWoCQRSAP1OkSJYUpgw'+
+          'BCTlAbuG2Yrkn8C4BG7HyBAHFzs6cIGBnE1KJnUHFYOFKUuxbWCQ7s87PWugHr5n39s23w8wwcOFMCIAIeAOmwEZiKm'+
+          'OR1HinArSAOfCribnUVnyuSr+AyGH0fazWNTA2kEljLD2c0bGQSaPjSuYF2DsQ2ksvawaaiXbAh8ROUzuwlQmArWKCd6CWqa/'+
+          'JWF79FssNHiqaf+Y0DySX912omvBKI/SoyL2SXIaHbCRn0lMrdK/IfRnmVD21Qj+K3JNhTtVTSx33e6huI1QFYtydslh6Wj'+
+          'HC3T00spWB5Clhe0unEbkQugXWDmTW0kuJ7pRBciq6Dn6si+UJy1IFVhars6LgZi6yQgDfQNvih9rSwyl3wMxgdWbyrRcaBkIN'+
+          'XzIpwyNkhr5lAB6ARQGZhdSWQrOAULMsmZSeQqZXtgzADTD5R2YiuZPwDCwzMksZOykhybMiRvNeLpOWxIXz4w8DMUFS/q2ywQAAAABJRU5ErkJggg==',
     opacity: 0.7,
     // embed own properties within maps Marker object
     title: data.name,
