@@ -43,7 +43,7 @@ module.exports = function(grunt) {
           collapseWhitespace: true
         },
         files: {
-          'index.html': 'index.process.html'
+          'index.html': 'index.premin.html'
         }
       }
     }
