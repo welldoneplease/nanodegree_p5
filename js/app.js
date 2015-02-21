@@ -51,6 +51,8 @@ var poi = [
   }
 ];
 
+
+
 var Marker = function(data) {
   return new google.maps.Marker({
     position: new google.maps.LatLng(data.coords.lat, data.coords.lng),
@@ -68,6 +70,7 @@ var Marker = function(data) {
     wiki: data.wiki
   });
 };
+
 
 
 var InfoWindow = function() {
@@ -161,18 +164,50 @@ var InfoWindow = function() {
 
 
 
-
 var MapViewModel = function() {
   var self = this;
 
-  // san francisco
-  var myLocation = {lat: 37.7900, lng: -122.4176};
+  // INITIALIZE LOGIC
+  // initialize func - executed IF the google API responeded
+  this.initialize = function() {
+    // san francisco
+    var myLocation = {lat: 37.7900, lng: -122.4176};
 
-  // create our map
-  this.map = new google.maps.Map(document.getElementById('map-canvas'),
-      {center: myLocation, zoom: 12, disableDefaultUI: true});
+    // create our map
+    self.map = new google.maps.Map(document.getElementById('map-canvas'),
+        {center: myLocation, zoom: 12, disableDefaultUI: true});
+
+    // populate our markerList
+    poi.forEach(function(point) {
+      // set up markers
+      var marker = new Marker(point);
+
+      marker.setMap(self.map);
+
+      // add click event listener to markers
+      google.maps.event.addListener(marker, 'click', function() {
+        self.setCurrentMarker(marker);
+        self.showInfoWindow();
+      });
+
+      self.markerList.push(marker);
+    });
+  };
+
+  // MARKER LOGIC
+  this.markerList = ko.observableArray([]);
+
+  this.currentMarker = ko.observable('');
+
+  // set current marker as the active marker
+  this.setCurrentMarker = function(marker) {
+    self.currentMarker() && self.currentMarker().setOpacity(0.7);
+    self.currentMarker(marker);
+    marker && marker.setOpacity(1);
+  };
 
 
+  // INFOWINDOW LOGIC
   this.infoWindow = new InfoWindow();
 
   // show the infowindow on either marker or list item click
@@ -186,26 +221,7 @@ var MapViewModel = function() {
   });
 
 
-  this.markerList = ko.observableArray([]);
-
-  // populate our markerList
-  poi.forEach(function(point) {
-    // set up markers
-    var marker = new Marker(point);
-
-    marker.setMap(this.map);
-
-    // add click event listener to markers
-    google.maps.event.addListener(marker, 'click', function() {
-      self.setCurrentMarker(marker);
-      self.showInfoWindow();
-    });
-
-    this.markerList.push(marker);
-  }, this);
-
-
-  // filter for search results
+  // FILTER LOGIC
   this.filter = ko.observable('');
 
   this.filteredList = function() {
@@ -222,17 +238,21 @@ var MapViewModel = function() {
       }
     });
   };
-
-
-  this.currentMarker = ko.observable('');
-
-  // set current marker as the active marker
-  this.setCurrentMarker = function(marker) {
-    self.currentMarker() && self.currentMarker().setOpacity(0.7);
-    self.currentMarker(marker);
-    marker && marker.setOpacity(1);
-  };
 };
 
-ko.applyBindings(new MapViewModel());
 
+// SET UP FUNCTION
+// make sure to show a message to the user if google API is unreachable
+function setUp() {
+  var map = new MapViewModel();
+  google.maps.event.addDomListener(window, 'load', map.initialize);
+  ko.applyBindings(map);
+}
+
+$.ajax({
+  url: 'https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCoGtqcCPsUMHR3Qyu29Y6Ogtqk_7dBsgw&callback=setUp',
+  dataType: 'script',
+  error: function () {
+    alert('There seems to be an issue with your connection, we can\'t reach Google -  please check it and try again');
+  }
+});
